@@ -2,7 +2,6 @@ import {
   BrowserRouter as Router,
   Route,
   Routes,
-  useLocation,
 } from "react-router-dom";
 
 import {
@@ -13,6 +12,7 @@ import {
 } from "../pages";
 import VendorLayout from "../layouts/VendorLayout";
 import AdminLayout from "../layouts/AdminLayout";
+import CSRLayout from "../layouts/CSRLayout";
 
 export default function AppRoutes() {
   return (
@@ -21,15 +21,21 @@ export default function AppRoutes() {
         <Route path="/" element={<Landing />} />
         <Route path="/CSRDashboard" element={<CSRDashboard />} />
 
-        {/* Vendor Layout */}
+        {/* Admin Layout */}
         <Route path="/*" element={<AdminLayout />}>
-          <Route path="/AdminDashboard" element={<AdminDashboard />} />
+          <Route path="admin-dashboard" element={<AdminDashboard />} />
         </Route>
 
         {/* Vendor Layout */}
         <Route path="/*" element={<VendorLayout />}>
-          <Route path="vendor-dashoboard" element={<VendorDashboard />} />
+          <Route path="vendor-dashboard" element={<VendorDashboard />} />
         </Route>
+
+        {/* CSR Layout */}
+        <Route path="/*" element={<CSRLayout />}>
+          <Route path="csr-dashboard" element={<CSRDashboard />} />
+        </Route>
+
       </Routes>
     </Router>
   );
