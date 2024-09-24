@@ -23,7 +23,7 @@ export default function AppRoutes() {
 
         {/* Vendor Layout */}
         <Route path="/*" element={<AdminLayout />}>
-          <Route path="/AdminDashboard" element={<AdminDashboard />} />
+          <Route path="AdminDashboard" element={<AdminDashboard />} />
         </Route>
 
         {/* Vendor Layout */}
