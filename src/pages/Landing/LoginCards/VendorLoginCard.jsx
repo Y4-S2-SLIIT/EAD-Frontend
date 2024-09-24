@@ -34,7 +34,7 @@ export default function VendorLoginCard() {
                         timer: 1500
                     })
                         .then(() => {
-                            window.location.href = '/VendorDashboard';
+                            window.location.href = '/vendor-dashoboard';
                         })
                 }
                 else {
