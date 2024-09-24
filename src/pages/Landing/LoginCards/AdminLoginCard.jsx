@@ -11,7 +11,7 @@ import { jwtDecode } from "jwt-decode";
 
 import AdminService from '../../../services/Admin.Service';
 
-export default function VendorLoginCard() {
+export default function AdminLoginCard() {
     const { Formik } = formik;
 
     const schema = yup.object({
@@ -75,9 +75,9 @@ export default function VendorLoginCard() {
             <Card style={{ width: '18rem' }}>
                 <Card.Img variant="top" src="holder.js/100px180" />
                 <Card.Body>
-                    <Card.Title>Vendor Login</Card.Title>
+                    <Card.Title>Admin Login</Card.Title>
                     <Card.Text>
-                        Vendor Login Information
+                        Admin Login Information
                     </Card.Text>
                     <Formik
                         validationSchema={schema}
