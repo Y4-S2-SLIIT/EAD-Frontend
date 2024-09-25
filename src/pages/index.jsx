@@ -3,9 +3,21 @@ import AdminDashboard from "./AdminDashboard";
 import CSRDashboard from "./CSRDashboard";
 import VendorDashboard from "./VendorDashboard";
 
+import {
+    AdminCategoryManagement,
+    AdminOrderManagement,
+    AdminVendorManagement,
+    AdminSystemUserManagement
+} from "./AdminSubParts";
+
 export {
     Landing,
     AdminDashboard,
     CSRDashboard,
-    VendorDashboard
+    VendorDashboard,
+
+    AdminCategoryManagement,
+    AdminOrderManagement,
+    AdminVendorManagement,
+    AdminSystemUserManagement
 };
