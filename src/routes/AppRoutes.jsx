@@ -1,15 +1,13 @@
-import {
-  BrowserRouter as Router,
-  Route,
-  Routes,
-  useLocation,
-} from "react-router-dom";
+import { BrowserRouter as Router, Route, Routes } from "react-router-dom";
 
 import {
   Landing,
   AdminDashboard,
   CSRDashboard,
   VendorDashboard,
+  OMLanding,
+  PMLanding,
+  AddProduct,
 } from "../pages";
 import VendorLayout from "../layouts/VendorLayout";
 import AdminLayout from "../layouts/AdminLayout";
@@ -18,17 +16,21 @@ export default function AppRoutes() {
   return (
     <Router>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Landing />} />
         <Route path="/CSRDashboard" element={<CSRDashboard />} />
 
-        {/* Vendor Layout */}
+        {/* Admin Layout */}
         <Route path="/*" element={<AdminLayout />}>
-          <Route path="AdminDashboard" element={<AdminDashboard />} />
+          <Route path="admin-dashboard" element={<AdminDashboard />} />
         </Route>
 
         {/* Vendor Layout */}
-        <Route path="/*" element={<VendorLayout />}>
-          <Route path="vendor-dashoboard" element={<VendorDashboard />} />
+        <Route path="/vendor/*" element={<VendorLayout />}>
+          <Route path="dashboard" element={<VendorDashboard />} />
+          <Route path="order-management" element={<OMLanding />} />
+          <Route path="product-management" element={<PMLanding />} />
+          <Route path="add-product" element={<AddProduct />} />
         </Route>
       </Routes>
     </Router>
