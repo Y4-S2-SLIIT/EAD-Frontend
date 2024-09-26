@@ -71,3 +71,9 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+
+.admin-category-management {
+  /* background-color: #778dd4; */
+  /* width: 100px; */
+  padding: 2rem;
+}
