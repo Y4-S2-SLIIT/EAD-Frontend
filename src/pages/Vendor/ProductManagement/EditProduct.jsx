@@ -4,22 +4,25 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid"; // Importing uuid for unique file naming
 import CategoryService from "../../../services/Category.Service";
 import ProductService from "../../../services/Product.Service";
-import Swal from "sweetalert2"; // SweetAlert2 for user-friendly alerts
+import Swal from "sweetalert2"; // SweetAlert2 for user-friendly alerts";
+import { useNavigate, useParams } from "react-router-dom"; // To get the product ID from the URL
 
-const AddProduct = () => {
+const EditProduct = () => {
+  const { id } = useParams(); // Getting the product ID from URL parameters
   const [product, setProduct] = useState({
     name: "",
     brand: "",
     description: "",
     categoryId: "",
     price: 0,
-    image: null,
+    image: "", // Initialize with empty string to allow for existing URL
     stock: 0,
     vendorId: localStorage.getItem("erp-vendorId"), // Assuming vendorId is stored in localStorage
   });
 
   const [categories, setCategories] = useState([]); 
   const [imageFile, setImageFile] = useState(null); // State to store image file
+  const navigate = useNavigate();
 
   useEffect(() => {
     // Fetching categories when component mounts
@@ -30,7 +33,21 @@ const AddProduct = () => {
       .catch((error) => {
         console.error("Error fetching categories:", error);
       });
-  }, []);
+
+    // Fetching existing product details for editing
+    ProductService.getProductById(id)
+      .then((response) => {
+        setProduct(response); // Set the fetched product to state
+      })
+      .catch((error) => {
+        console.error("Error fetching product:", error);
+        Swal.fire({
+          icon: "error",
+          title: "Fetch Product Failed",
+          text: "There was an error fetching the product details. Please try again.",
+        });
+      });
+  }, [id]); // Dependency on product ID to refetch data if it changes
 
   // Handling form input changes
   const handleChange = (e) => {
@@ -45,7 +62,7 @@ const AddProduct = () => {
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImageFile(file); // Store the image file
+      setImageFile(file); // Store the new image file
     } else {
       Swal.fire("Warning", "Please select a valid image file.", "warning");
     }
@@ -63,7 +80,6 @@ const AddProduct = () => {
   const handleSubmit = (e) => {
     e.preventDefault();
 
-    // Ensure an image file is selected
     if (imageFile) {
       const storageRef = ref(storage, `products/${uuidv4() + imageFile.name}`);
       const uploadTask = uploadBytesResumable(storageRef, imageFile);
@@ -80,48 +96,69 @@ const AddProduct = () => {
           });
         },
         async () => {
-          // Get the download URL for the uploaded image
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
-          const productData = {
+          const updatedProductData = {
             ...product,
             image: downloadURL,
           };
 
-          // Submit product data to backend
-          ProductService.addProduct(productData)
+          // Submit updated product data to backend
+          ProductService.updateProduct(id, updatedProductData)
             .then(() => {
               Swal.fire({
                 icon: "success",
-                title: "Product Added",
-                text: "Your product has been successfully added!",
+                title: "Product Updated",
+                text: "Your product has been successfully updated!",
                 showConfirmButton: false,
                 timer: 1500,
               }).then(() => {
-                window.location.href = "./product-management"; // Redirect to product management
+                window.location.href = "../product-management"; // Redirect to product management
               });
             })
             .catch((error) => {
-              console.error("Error adding product:", error);
+              console.error("Error updating product:", error);
               Swal.fire({
                 icon: "error",
-                title: "Product Submission Failed",
-                text: "There was an error adding the product. Please try again.",
+                title: "Product Update Failed",
+                text: "There was an error updating the product. Please try again.",
               });
             });
         }
       );
     } else {
-      Swal.fire({
-        icon: "warning",
-        title: "No Image Selected",
-        text: "Please select an image file to upload.",
-      });
+      // If no new image is uploaded, retain the existing image URL
+      const updatedProductData = {
+        ...product,
+        image: product.image, // Keep the previous image URL
+      };
+
+      // Submit updated product data to backend
+      ProductService.updateProduct(id, updatedProductData)
+        .then(() => {
+          Swal.fire({
+            icon: "success",
+            title: "Product Updated",
+            text: "Your product has been successfully updated!",
+            showConfirmButton: false,
+            timer: 1500,
+          }).then(() => {
+            window.location.href = "../product-management"; // Redirect to product management
+          });
+        })
+        .catch((error) => {
+          console.error("Error updating product:", error);
+          Swal.fire({
+            icon: "error",
+            title: "Product Update Failed",
+            text: "There was an error updating the product. Please try again.",
+          });
+        });
     }
   };
 
   return (
     <div className="container">
-      <h2>Add New Product</h2>
+      <h2>Edit Product</h2>
       <form onSubmit={handleSubmit}>
         {/* Name */}
         <div className="mb-3">
@@ -160,7 +197,7 @@ const AddProduct = () => {
             name="description"
             value={product.description}
             onChange={handleChange}
-            required
+            
           />
         </div>
 
@@ -209,9 +246,9 @@ const AddProduct = () => {
             id="image"
             name="image"
             onChange={handleImageChange}
-            required
             accept="image/*"
           />
+          {product.image && <img src={product.image} alt="Product" style={{ width: "100px", marginTop: "10px" }} />}
         </div>
 
         {/* Stock */}
@@ -231,11 +268,11 @@ const AddProduct = () => {
 
         {/* Submit Button */}
         <button type="submit" className="btn btn-primary">
-          Add Product
+          Update Product
         </button>
       </form>
     </div>
   );
 };
 
-export default AddProduct;
+export default EditProduct;

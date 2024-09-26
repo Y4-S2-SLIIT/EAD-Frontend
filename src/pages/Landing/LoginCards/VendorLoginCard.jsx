@@ -26,6 +26,7 @@ export default function VendorLoginCard() {
             .then((response) => {
                 if (response.status === 200) {
                     localStorage.setItem('token', response.token);
+                    localStorage.setItem('erp-vendorId', response.vendorId);
                     Swal.fire({
                         icon: 'success',
                         title: 'Login Successful',
@@ -34,10 +35,10 @@ export default function VendorLoginCard() {
                         timer: 1500
                     })
                         .then(() => {
-                            window.location.href = '/vendor-dashoboard';
                             localStorage.setItem('erp-role', 'vendor');
                             localStorage.setItem('erp-username', values.username);
                             localStorage.setItem('erp-nav', 'vendor-dashoboard');
+                            window.location.href = '/vendor/dashoboard';
                         })
                 }
                 else {
