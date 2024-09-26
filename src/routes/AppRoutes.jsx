@@ -9,7 +9,9 @@ import {
   AdminDashboard,
   CSRDashboard,
   VendorDashboard,
-
+  OMLanding,
+  PMLanding,
+  AddProduct,
   AdminCategoryManagement,
   AdminOrderManagement,
   AdminVendorManagement,
@@ -24,6 +26,7 @@ export default function AppRoutes() {
   return (
     <Router>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Landing />} />
         <Route path="/CSRDashboard" element={<CSRDashboard />} />
 
@@ -37,8 +40,11 @@ export default function AppRoutes() {
         </Route>
 
         {/* Vendor Layout */}
-        <Route path="/*" element={<VendorLayout />}>
-          <Route path="vendor-dashboard" element={<VendorDashboard />} />
+        <Route path="/vendor/*" element={<VendorLayout />}>
+          <Route path="dashboard" element={<VendorDashboard />} />
+          <Route path="order-management" element={<OMLanding />} />
+          <Route path="product-management" element={<PMLanding />} />
+          <Route path="add-product" element={<AddProduct />} />
         </Route>
 
         {/* CSR Layout */}

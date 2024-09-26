@@ -35,6 +35,9 @@ export default function VendorLoginCard() {
                     })
                         .then(() => {
                             window.location.href = '/vendor-dashoboard';
+                            localStorage.setItem('erp-role', 'vendor');
+                            localStorage.setItem('erp-username', values.username);
+                            localStorage.setItem('erp-nav', 'vendor-dashoboard');
                         })
                 }
                 else {
