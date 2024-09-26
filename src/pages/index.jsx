@@ -6,6 +6,13 @@ import OMLanding from "./Vendor/OrderManagement/OMLanding";
 import PMLanding from "./Vendor/ProductManagement/PMLanding";
 import AddProduct from "./Vendor/ProductManagement/AddProduct";
 
+import {
+    AdminCategoryManagement,
+    AdminOrderManagement,
+    AdminVendorManagement,
+    AdminSystemUserManagement
+} from "./AdminSubParts";
+
 export {
     Landing,
     AdminDashboard,
@@ -14,4 +21,8 @@ export {
     OMLanding,
     PMLanding,
     AddProduct
+    AdminCategoryManagement,
+    AdminOrderManagement,
+    AdminVendorManagement,
+    AdminSystemUserManagement
 };
