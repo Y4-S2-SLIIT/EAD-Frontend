@@ -21,6 +21,7 @@ import {
 import VendorLayout from "../layouts/VendorLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import CSRLayout from "../layouts/CSRLayout";
+import EditProduct from "../pages/Vendor/ProductManagement/EditProduct";
 
 export default function AppRoutes() {
   return (
@@ -45,6 +46,7 @@ export default function AppRoutes() {
           <Route path="order-management" element={<OMLanding />} />
           <Route path="product-management" element={<PMLanding />} />
           <Route path="add-product" element={<AddProduct />} />
+          <Route path="edit-product/:id" element={<EditProduct />} />
         </Route>
 
         {/* CSR Layout */}

@@ -10,3 +10,11 @@ export const VENDOR_URL = `${BASE_URL}/vendor/login `;
 export const GET_VENDOR_URL = `${BASE_URL}/vendor`;
 export const GET_VENDOR_BY_ID_URL = (id) => `${BASE_URL}/vendor/${id}`;
 
+// Product Endpoints
+export const PRODUCT_URL = `${BASE_URL}/product`;
+export const PRODUCT_BY_ID = (id) => `${BASE_URL}/product/${id}`;
+export const GET_PRODUCT_BY_VENDORID = (id) => `${BASE_URL}/product/vendor/${id}`;
+
+// Category Endpoints
+export const CATEGORY_URL = `${BASE_URL}/category`;
+
