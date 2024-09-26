@@ -20,7 +20,7 @@ export {
     VendorDashboard,
     OMLanding,
     PMLanding,
-    AddProduct
+    AddProduct,
     AdminCategoryManagement,
     AdminOrderManagement,
     AdminVendorManagement,
