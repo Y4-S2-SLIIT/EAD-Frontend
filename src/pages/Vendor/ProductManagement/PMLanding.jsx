@@ -45,7 +45,7 @@ const PMLanding = () => {
       showCancelButton: true,
       confirmButtonColor: "#3085d6",
       cancelButtonColor: "#d33",
-      confirmButtonText: "Yes, delete it!"
+      confirmButtonText: "Yes, delete it!",
     }).then((result) => {
       if (result.isConfirmed) {
         ProductService.deleteProduct(id)
@@ -58,7 +58,11 @@ const PMLanding = () => {
           })
           .catch((error) => {
             console.error("Error deleting product:", error);
-            Swal.fire("Error!", "There was an issue deleting the product.", "error");
+            Swal.fire(
+              "Error!",
+              "There was an issue deleting the product.",
+              "error"
+            );
           });
       }
     });
@@ -66,7 +70,7 @@ const PMLanding = () => {
 
   return (
     <div className="container">
-      <h2>Product Management Landing</h2>
+      <h2>Product Management</h2>
 
       <div className="mb-3">
         <button className="btn btn-primary" onClick={handleAddProductClick}>
@@ -86,51 +90,58 @@ const PMLanding = () => {
 
       <div className="product-list">
         {filteredProducts.length > 0 ? (
-          filteredProducts.map((product) => (
-            <div key={product.id} className="card mb-3">
-              <div className="row g-0">
-                <div className="col-md-4">
-                  <img
-                    src={product.image}
-                    alt={product.name}
-                    className="img-fluid rounded-start"
-                  />
-                </div>
-                <div className="col-md-8">
-                  <div className="card-body">
-                    <h5 className="card-title">{product.name}</h5>
-                    <p className="card-text">
-                      <strong>Brand:</strong> {product.brand}
-                    </p>
-                    <p className="card-text">
-                      <strong>Description:</strong> {product.description}
-                    </p>
-                    <p className="card-text">
-                      <strong>Price:</strong> ${product.price}
-                    </p>
-                    <p className="card-text">
-                      <strong>Stock:</strong> {product.stock}
-                    </p>
+          filteredProducts
+            .slice()
+            .reverse()
+            .map((product) => (
+              <div key={product.id} className="card mb-3">
+                <div className="row g-0">
+                  <div className="col-md-4">
+                    <img
+                      src={product.image}
+                      alt={product.name}
+                      className="img-fluid rounded-start"
+                    />
+                  </div>
+                  <div className="col-md-8">
+                    <div className="card-body">
+                      <h5 className="card-title">{product.name}</h5>
+                      <p className="card-text">
+                        <strong>Brand:</strong> {product.brand}
+                      </p>
+                      <p className="card-text">
+                        <strong>Description:</strong> {product.description}
+                      </p>
+                      <p className="card-text">
+                        <strong>Price:</strong> ${product.price}
+                      </p>
+                      <p className="card-text">
+                        <strong>Stock:</strong> {product.stock}
+                      </p>
+                      <p className="card-text">
+                        <strong>Category:</strong>{" "}
+                        {product.category?.name || "N/A"}
+                      </p>
 
-                    <div className="d-flex justify-content-end">
-                      <button
-                        className="btn btn-warning me-2"
-                        onClick={() => handleEditProductClick(product.id)}
-                      >
-                        Edit
-                      </button>
-                      <button
-                        className="btn btn-danger"
-                        onClick={() => deleteProduct(product.id)}
-                      >
-                        Delete
-                      </button>
+                      <div className="d-flex justify-content-end">
+                        <button
+                          className="btn btn-warning me-2"
+                          onClick={() => handleEditProductClick(product.id)}
+                        >
+                          Edit
+                        </button>
+                        <button
+                          className="btn btn-danger"
+                          onClick={() => deleteProduct(product.id)}
+                        >
+                          Delete
+                        </button>
+                      </div>
                     </div>
                   </div>
                 </div>
               </div>
-            </div>
-          ))
+            ))
         ) : (
           <p>No products found.</p>
         )}
