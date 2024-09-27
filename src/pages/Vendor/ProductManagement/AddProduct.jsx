@@ -1,28 +1,29 @@
 import React, { useState, useEffect } from "react";
-import { storage } from "../../../../firebase"; // Import storage from your Firebase config
+import { storage } from "../../../../firebase";
 import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
-import { v4 as uuidv4 } from "uuid"; // Importing uuid for unique file naming
+import { v4 as uuidv4 } from "uuid";
 import CategoryService from "../../../services/Category.Service";
 import ProductService from "../../../services/Product.Service";
-import Swal from "sweetalert2"; // SweetAlert2 for user-friendly alerts
+import Swal from "sweetalert2";
 
 const AddProduct = () => {
   const [product, setProduct] = useState({
     name: "",
     brand: "",
     description: "",
-    categoryId: "",
+    category: null,
     price: 0,
     image: null,
     stock: 0,
-    vendorId: localStorage.getItem("erp-vendorId"), // Assuming vendorId is stored in localStorage
+    vendorId: localStorage.getItem("erp-vendorId"),
   });
 
-  const [categories, setCategories] = useState([]); 
-  const [imageFile, setImageFile] = useState(null); // State to store image file
+  const [categories, setCategories] = useState([]);
+  const [imageFile, setImageFile] = useState(null);
+  const [previewUrl, setPreviewUrl] = useState(null); // State for image preview
+  const [loading, setLoading] = useState(false);
 
   useEffect(() => {
-    // Fetching categories when component mounts
     CategoryService.getAllCategories()
       .then((response) => {
         setCategories(response);
@@ -32,7 +33,6 @@ const AddProduct = () => {
       });
   }, []);
 
-  // Handling form input changes
   const handleChange = (e) => {
     const { name, value } = e.target;
     setProduct((prevProduct) => ({
@@ -41,29 +41,28 @@ const AddProduct = () => {
     }));
   };
 
-  // Handling image file change
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
-      setImageFile(file); // Store the image file
+      setImageFile(file);
+      setPreviewUrl(URL.createObjectURL(file)); // Generate the image preview URL
     } else {
       Swal.fire("Warning", "Please select a valid image file.", "warning");
     }
   };
 
-  // Handle category change
   const handleCategoryChange = (e) => {
+    const selectedCategory = categories.find((cat) => cat.id === e.target.value);
     setProduct((prevProduct) => ({
       ...prevProduct,
-      categoryId: e.target.value,
+      category: selectedCategory,
     }));
   };
 
-  // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true);
 
-    // Ensure an image file is selected
     if (imageFile) {
       const storageRef = ref(storage, `products/${uuidv4() + imageFile.name}`);
       const uploadTask = uploadBytesResumable(storageRef, imageFile);
@@ -72,6 +71,7 @@ const AddProduct = () => {
         "state_changed",
         null,
         (error) => {
+          setLoading(false);
           console.error("Error uploading file:", error);
           Swal.fire({
             icon: "error",
@@ -80,16 +80,15 @@ const AddProduct = () => {
           });
         },
         async () => {
-          // Get the download URL for the uploaded image
           const downloadURL = await getDownloadURL(uploadTask.snapshot.ref);
           const productData = {
             ...product,
             image: downloadURL,
           };
 
-          // Submit product data to backend
           ProductService.addProduct(productData)
             .then(() => {
+              setLoading(false);
               Swal.fire({
                 icon: "success",
                 title: "Product Added",
@@ -97,10 +96,11 @@ const AddProduct = () => {
                 showConfirmButton: false,
                 timer: 1500,
               }).then(() => {
-                window.location.href = "./product-management"; // Redirect to product management
+                window.location.href = "./product-management";
               });
             })
             .catch((error) => {
+              setLoading(false);
               console.error("Error adding product:", error);
               Swal.fire({
                 icon: "error",
@@ -111,6 +111,7 @@ const AddProduct = () => {
         }
       );
     } else {
+      setLoading(false);
       Swal.fire({
         icon: "warning",
         title: "No Image Selected",
@@ -121,9 +122,15 @@ const AddProduct = () => {
 
   return (
     <div className="container">
+      {loading && (
+        <div className="position-fixed top-0 start-0 w-100 h-100 bg-light d-flex justify-content-center align-items-center" style={{ zIndex: 1050 }}>
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      )}
       <h2>Add New Product</h2>
       <form onSubmit={handleSubmit}>
-        {/* Name */}
         <div className="mb-3">
           <label htmlFor="name" className="form-label">Name</label>
           <input
@@ -137,7 +144,6 @@ const AddProduct = () => {
           />
         </div>
 
-        {/* Brand */}
         <div className="mb-3">
           <label htmlFor="brand" className="form-label">Brand</label>
           <input
@@ -151,7 +157,6 @@ const AddProduct = () => {
           />
         </div>
 
-        {/* Description */}
         <div className="mb-3">
           <label htmlFor="description" className="form-label">Description</label>
           <textarea
@@ -164,14 +169,13 @@ const AddProduct = () => {
           />
         </div>
 
-        {/* Category */}
         <div className="mb-3">
-          <label htmlFor="categoryId" className="form-label">Category</label>
+          <label htmlFor="category" className="form-label">Category</label>
           <select
             className="form-select"
-            id="categoryId"
-            name="categoryId"
-            value={product.categoryId}
+            id="category"
+            name="category"
+            value={product.category?.id || ""}
             onChange={handleCategoryChange}
             required
           >
@@ -184,7 +188,6 @@ const AddProduct = () => {
           </select>
         </div>
 
-        {/* Price */}
         <div className="mb-3">
           <label htmlFor="price" className="form-label">Price per Unit</label>
           <input
@@ -200,7 +203,6 @@ const AddProduct = () => {
           />
         </div>
 
-        {/* Product Image */}
         <div className="mb-3">
           <label htmlFor="image" className="form-label">Product Image</label>
           <input
@@ -214,7 +216,15 @@ const AddProduct = () => {
           />
         </div>
 
-        {/* Stock */}
+        {/* Image Preview */}
+        {previewUrl && (
+          <div className="mb-3">
+            <div>
+              <img src={previewUrl} alt="Product Preview" className="img-fluid" style={{ maxWidth: "300px" }} />
+            </div>
+          </div>
+        )}
+
         <div className="mb-3">
           <label htmlFor="stock" className="form-label">Available Stock</label>
           <input
@@ -229,10 +239,7 @@ const AddProduct = () => {
           />
         </div>
 
-        {/* Submit Button */}
-        <button type="submit" className="btn btn-primary">
-          Add Product
-        </button>
+        <button type="submit" className="btn btn-primary">Add Product</button>
       </form>
     </div>
   );

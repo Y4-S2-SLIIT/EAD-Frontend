@@ -4,7 +4,7 @@ import { ref, uploadBytesResumable, getDownloadURL } from "firebase/storage";
 import { v4 as uuidv4 } from "uuid"; // Importing uuid for unique file naming
 import CategoryService from "../../../services/Category.Service";
 import ProductService from "../../../services/Product.Service";
-import Swal from "sweetalert2"; // SweetAlert2 for user-friendly alerts";
+import Swal from "sweetalert2"; // SweetAlert2 for user-friendly alerts
 import { useNavigate, useParams } from "react-router-dom"; // To get the product ID from the URL
 
 const EditProduct = () => {
@@ -13,15 +13,17 @@ const EditProduct = () => {
     name: "",
     brand: "",
     description: "",
-    categoryId: "",
+    category: null, // Changed from categoryId to category object
     price: 0,
     image: "", // Initialize with empty string to allow for existing URL
     stock: 0,
     vendorId: localStorage.getItem("erp-vendorId"), // Assuming vendorId is stored in localStorage
   });
 
-  const [categories, setCategories] = useState([]); 
+  const [categories, setCategories] = useState([]);
   const [imageFile, setImageFile] = useState(null); // State to store image file
+  const [imagePreview, setImagePreview] = useState(""); // State to store the image preview URL
+  const [loading, setLoading] = useState(false); // Loading state
   const navigate = useNavigate();
 
   useEffect(() => {
@@ -38,6 +40,7 @@ const EditProduct = () => {
     ProductService.getProductById(id)
       .then((response) => {
         setProduct(response); // Set the fetched product to state
+        setImagePreview(response.image); // Set the existing product image for preview
       })
       .catch((error) => {
         console.error("Error fetching product:", error);
@@ -58,11 +61,12 @@ const EditProduct = () => {
     }));
   };
 
-  // Handling image file change
+  // Handling image file change and preview
   const handleImageChange = (e) => {
     const file = e.target.files[0];
     if (file) {
       setImageFile(file); // Store the new image file
+      setImagePreview(URL.createObjectURL(file)); // Show a preview of the new image
     } else {
       Swal.fire("Warning", "Please select a valid image file.", "warning");
     }
@@ -70,15 +74,17 @@ const EditProduct = () => {
 
   // Handle category change
   const handleCategoryChange = (e) => {
+    const selectedCategory = categories.find((cat) => cat.id === e.target.value);
     setProduct((prevProduct) => ({
       ...prevProduct,
-      categoryId: e.target.value,
+      category: selectedCategory, // Set the entire category object
     }));
   };
 
   // Handle form submission
   const handleSubmit = (e) => {
     e.preventDefault();
+    setLoading(true); // Set loading to true when submitting
 
     if (imageFile) {
       const storageRef = ref(storage, `products/${uuidv4() + imageFile.name}`);
@@ -88,6 +94,7 @@ const EditProduct = () => {
         "state_changed",
         null,
         (error) => {
+          setLoading(false); // Set loading to false on error
           console.error("Error uploading file:", error);
           Swal.fire({
             icon: "error",
@@ -105,6 +112,7 @@ const EditProduct = () => {
           // Submit updated product data to backend
           ProductService.updateProduct(id, updatedProductData)
             .then(() => {
+              setLoading(false); // Set loading to false on success
               Swal.fire({
                 icon: "success",
                 title: "Product Updated",
@@ -112,10 +120,11 @@ const EditProduct = () => {
                 showConfirmButton: false,
                 timer: 1500,
               }).then(() => {
-                window.location.href = "../product-management"; // Redirect to product management
+                navigate("../product-management"); // Redirect to product management
               });
             })
             .catch((error) => {
+              setLoading(false); // Set loading to false on error
               console.error("Error updating product:", error);
               Swal.fire({
                 icon: "error",
@@ -135,6 +144,7 @@ const EditProduct = () => {
       // Submit updated product data to backend
       ProductService.updateProduct(id, updatedProductData)
         .then(() => {
+          setLoading(false); // Set loading to false on success
           Swal.fire({
             icon: "success",
             title: "Product Updated",
@@ -142,10 +152,11 @@ const EditProduct = () => {
             showConfirmButton: false,
             timer: 1500,
           }).then(() => {
-            window.location.href = "../product-management"; // Redirect to product management
+            navigate("../product-management"); // Redirect to product management
           });
         })
         .catch((error) => {
+          setLoading(false); // Set loading to false on error
           console.error("Error updating product:", error);
           Swal.fire({
             icon: "error",
@@ -158,6 +169,14 @@ const EditProduct = () => {
 
   return (
     <div className="container">
+      {/* Loading Spinner from Bootstrap */}
+      {loading && (
+        <div className="position-fixed top-0 start-0 w-100 h-100 bg-light d-flex justify-content-center align-items-center" style={{ zIndex: 1050 }}>
+          <div className="spinner-border" role="status">
+            <span className="visually-hidden">Loading...</span>
+          </div>
+        </div>
+      )}
       <h2>Edit Product</h2>
       <form onSubmit={handleSubmit}>
         {/* Name */}
@@ -197,18 +216,18 @@ const EditProduct = () => {
             name="description"
             value={product.description}
             onChange={handleChange}
-            
+            required
           />
         </div>
 
         {/* Category */}
         <div className="mb-3">
-          <label htmlFor="categoryId" className="form-label">Category</label>
+          <label htmlFor="category" className="form-label">Category</label>
           <select
             className="form-select"
-            id="categoryId"
-            name="categoryId"
-            value={product.categoryId}
+            id="category"
+            name="category"
+            value={product.category?.id || ""} // Adjusting for category object
             onChange={handleCategoryChange}
             required
           >
@@ -240,20 +259,23 @@ const EditProduct = () => {
         {/* Product Image */}
         <div className="mb-3">
           <label htmlFor="image" className="form-label">Product Image</label>
+          {imagePreview && (
+            <div className="mb-3">
+              <img src={imagePreview} alt="Product Preview" style={{ width: "150px", height: "auto" }} />
+            </div>
+          )}
           <input
             type="file"
             className="form-control"
             id="image"
-            name="image"
             onChange={handleImageChange}
             accept="image/*"
           />
-          {product.image && <img src={product.image} alt="Product" style={{ width: "100px", marginTop: "10px" }} />}
         </div>
 
         {/* Stock */}
         <div className="mb-3">
-          <label htmlFor="stock" className="form-label">Available Stock</label>
+          <label htmlFor="stock" className="form-label">Stock Quantity</label>
           <input
             type="number"
             className="form-control"
@@ -266,10 +288,7 @@ const EditProduct = () => {
           />
         </div>
 
-        {/* Submit Button */}
-        <button type="submit" className="btn btn-primary">
-          Update Product
-        </button>
+        <button type="submit" className="btn btn-primary">Update Product</button>
       </form>
     </div>
   );
