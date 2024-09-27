@@ -13,7 +13,11 @@ import {
   AdminCategoryManagement,
   AdminOrderManagement,
   AdminVendorManagement,
-  AdminSystemUserManagement
+  AdminSystemUserManagement,
+
+  CSRCustomerManagement,
+  CSROrderManagement,
+  CSRCustomerDetails
 } from "../pages";
 
 import VendorLayout from "../layouts/VendorLayout";
@@ -25,7 +29,6 @@ export default function AppRoutes() {
     <Router>
       <Routes>
         <Route path="/" element={<Landing />} />
-        <Route path="/CSRDashboard" element={<CSRDashboard />} />
 
         {/* Admin Layout */}
         <Route path="/*" element={<AdminLayout />}>
@@ -44,6 +47,9 @@ export default function AppRoutes() {
         {/* CSR Layout */}
         <Route path="/*" element={<CSRLayout />}>
           <Route path="csr-dashboard" element={<CSRDashboard />} />
+          <Route path="csr-system-user-management" element={<CSRCustomerManagement />} />
+          <Route path="csr-order-management" element={<CSROrderManagement />} />
+          <Route path="csr-customer-details/:customerId" element={<CSRCustomerDetails />} /> 
         </Route>
 
       </Routes>

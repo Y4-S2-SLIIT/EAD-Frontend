@@ -10,3 +10,7 @@ export const VENDOR_URL = `${BASE_URL}/vendor/login `;
 export const GET_VENDOR_URL = `${BASE_URL}/vendor`;
 export const GET_VENDOR_BY_ID_URL = (id) => `${BASE_URL}/vendor/${id}`;
 
+//Customer Endpoints
+export const CUSTOMER_URL = `${BASE_URL}/customer`;
+export const CUSTOMER_BY_ID_URL = (id) => `${BASE_URL}/customer/${id}`;
+
