@@ -10,7 +10,9 @@ import {
     AdminCategoryManagement,
     AdminOrderManagement,
     AdminVendorManagement,
-    AdminSystemUserManagement
+    AdminSystemUserManagement,
+    AdminCustomerManagement,
+    AdminInventoryManagement
 } from "./AdminSubParts";
 
 export {
@@ -24,5 +26,7 @@ export {
     AdminCategoryManagement,
     AdminOrderManagement,
     AdminVendorManagement,
-    AdminSystemUserManagement
+    AdminSystemUserManagement,
+    AdminCustomerManagement,
+    AdminInventoryManagement
 };

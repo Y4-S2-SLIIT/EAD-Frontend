@@ -1,21 +1,14 @@
-import React, { useState, useEffect } from 'react';
+import React, { useState } from 'react'
 import {
     Alert,
     Container,
     Row,
     Col,
-    Card,
     Button,
-    Modal,
-    Form,
-    Spinner
-} from 'react-bootstrap';
-import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
-import * as Yup from 'yup';
-import VendorService from '../../../services/Vendor.Service';
-import Swal from 'sweetalert2';
+    Modal
+} from 'react-bootstrap'
 
-export default function AdminVendorManagement() {
+export default function AdminCustomerManagement() {
     return (
         <>
             <Container
@@ -25,7 +18,7 @@ export default function AdminVendorManagement() {
                 <Row>
                     <Col>
                         <Alert variant='primary'>
-                            Admin Vendor Management
+                            Admin Customer Management
                         </Alert>
                     </Col>
                 </Row>

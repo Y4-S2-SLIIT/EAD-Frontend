@@ -15,7 +15,9 @@ import {
   AdminCategoryManagement,
   AdminOrderManagement,
   AdminVendorManagement,
-  AdminSystemUserManagement
+  AdminSystemUserManagement,
+  AdminCustomerManagement,
+  AdminInventoryManagement
 } from "../pages";
 
 import VendorLayout from "../layouts/VendorLayout";
@@ -38,6 +40,8 @@ export default function AppRoutes() {
           <Route path="admin-order-management" element={<AdminOrderManagement />} />
           <Route path="admin-vendor-management" element={<AdminVendorManagement />} />
           <Route path="admin-system-user-management" element={<AdminSystemUserManagement />} />
+          <Route path="admin-customer-management" element={<AdminCustomerManagement />} />
+          <Route path="admin-inventory-management" element={<AdminInventoryManagement />} />
         </Route>
 
         {/* Vendor Layout */}

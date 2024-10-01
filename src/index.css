@@ -71,7 +71,6 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-
 /* navbar */
 .nav-link:hover {
   color: red; /* Change to any color you prefer */
@@ -92,4 +91,10 @@ footer a {
 
 footer a:hover {
   color: lightgray;
+}
+
+.admin-category-management {
+  /* background-color: #778dd4; */
+  /* width: 100px; */
+  padding: 2rem;
 }

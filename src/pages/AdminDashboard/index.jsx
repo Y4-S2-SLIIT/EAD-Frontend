@@ -1,12 +1,10 @@
-import React, { useState } from 'react'
+import React from 'react';
 import {
-    Alert,
     Container,
     Card,
     Row,
     Col,
-    Button,
-    Modal
+    Button
 } from 'react-bootstrap';
 import { useNavigate } from 'react-router-dom';
 
@@ -16,9 +14,10 @@ export default function AdminDashboard() {
         <>
             <Container
                 fluid
-                className="d-flex vh-100 justify-content-center align-items-center"
+                className="d-flex flex-column justify-content-center align-items-center vh-100"
             >
-                <Row>
+                {/* First Row */}
+                <Row className="mb-3">
                     {/* System User Management Card */}
                     <Col sm={3}>
                         <Card style={{ width: '18rem' }}>
@@ -26,15 +25,15 @@ export default function AdminDashboard() {
                             <Card.Body>
                                 <Card.Title>System User Management</Card.Title>
                                 <Card.Text>
-                                    Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.
+                                    Manage system users.
                                 </Card.Text>
                                 <Button
                                     variant="primary"
                                     style={{ minWidth: '200px' }}
                                     onClick={() => {
                                         navigate('/admin-system-user-management')
-                                    }}>View System Users</Button>
+                                    }}
+                                >View System Users</Button>
                             </Card.Body>
                         </Card>
                     </Col>
@@ -45,8 +44,7 @@ export default function AdminDashboard() {
                             <Card.Body>
                                 <Card.Title>Vendor Management</Card.Title>
                                 <Card.Text>
-                                    Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.
+                                    Manage vendors.
                                 </Card.Text>
                                 <Button
                                     variant="primary"
@@ -58,6 +56,25 @@ export default function AdminDashboard() {
                             </Card.Body>
                         </Card>
                     </Col>
+                    {/* Customer Management Card */}
+                    <Col sm={3}>
+                        <Card style={{ width: '18rem' }}>
+                            <Card.Img variant="top" src="holder.js/100px180" />
+                            <Card.Body>
+                                <Card.Title>Customer Management</Card.Title>
+                                <Card.Text>
+                                    Manage customers.
+                                </Card.Text>
+                                <Button
+                                    variant="primary"
+                                    style={{ minWidth: '200px' }}
+                                    onClick={() => {
+                                        navigate('/admin-customer-management')
+                                    }}
+                                >View Customers</Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
                     {/* Category Management Card */}
                     <Col sm={3}>
                         <Card style={{ width: '18rem' }}>
@@ -65,8 +82,7 @@ export default function AdminDashboard() {
                             <Card.Body>
                                 <Card.Title>Category Management</Card.Title>
                                 <Card.Text>
-                                    Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.
+                                    Manage categories.
                                 </Card.Text>
                                 <Button
                                     variant="primary"
@@ -78,15 +94,17 @@ export default function AdminDashboard() {
                             </Card.Body>
                         </Card>
                     </Col>
+                </Row>
+                {/* Second Row */}
+                <Row>
                     {/* Order Management Card */}
-                    <Col sm={3}>
+                    <Col sm={6}>
                         <Card style={{ width: '18rem' }}>
                             <Card.Img variant="top" src="holder.js/100px180" />
                             <Card.Body>
                                 <Card.Title>Order Management</Card.Title>
                                 <Card.Text>
-                                    Some quick example text to build on the card title and make up the
-                                    bulk of the card's content.
+                                    Manage orders.
                                 </Card.Text>
                                 <Button
                                     variant="primary"
@@ -98,9 +116,28 @@ export default function AdminDashboard() {
                             </Card.Body>
                         </Card>
                     </Col>
+
+                    {/* Inventory Management Card */}
+                    <Col sm={6}>
+                        <Card style={{ width: '18rem' }}>
+                            <Card.Img variant="top" src="holder.js/100px180" />
+                            <Card.Body>
+                                <Card.Title>Inventory Management</Card.Title>
+                                <Card.Text>
+                                    Manage Inventory.
+                                </Card.Text>
+                                <Button
+                                    variant="primary"
+                                    style={{ minWidth: '200px' }}
+                                    onClick={() => {
+                                        navigate('/admin-inventory-management')
+                                    }}
+                                >View Inventory</Button>
+                            </Card.Body>
+                        </Card>
+                    </Col>
                 </Row>
             </Container>
-            <></>
         </>
     )
 }
