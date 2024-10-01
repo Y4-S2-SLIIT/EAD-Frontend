@@ -7,6 +7,7 @@ export const GET_USER_BY_ID_URL = (id) => `${BASE_URL}/auth/${id}`;
 
 // Vendor Endpoints
 export const VENDOR_URL = `${BASE_URL}/vendor/login `;
+export const VENDOR_REGISTER_URL = `${BASE_URL}/vendor/register`;
 export const GET_VENDOR_URL = `${BASE_URL}/vendor`;
 export const GET_VENDOR_BY_ID_URL = (id) => `${BASE_URL}/vendor/${id}`;
 
