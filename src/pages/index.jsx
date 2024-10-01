@@ -1,7 +1,10 @@
 import Landing from "./Landing";
 import AdminDashboard from "./AdminDashboard";
 import CSRDashboard from "./CSRDashboard";
-import VendorDashboard from "./VendorDashboard";
+import VendorDashboard from "./Vendor/VendorDashboard";
+import OMLanding from "./Vendor/OrderManagement/OMLanding";
+import PMLanding from "./Vendor/ProductManagement/PMLanding";
+import AddProduct from "./Vendor/ProductManagement/AddProduct";
 
 import {
     AdminCategoryManagement,
@@ -17,7 +20,9 @@ export {
     AdminDashboard,
     CSRDashboard,
     VendorDashboard,
-
+    OMLanding,
+    PMLanding,
+    AddProduct,
     AdminCategoryManagement,
     AdminOrderManagement,
     AdminVendorManagement,

@@ -9,7 +9,9 @@ import {
   AdminDashboard,
   CSRDashboard,
   VendorDashboard,
-
+  OMLanding,
+  PMLanding,
+  AddProduct,
   AdminCategoryManagement,
   AdminOrderManagement,
   AdminVendorManagement,
@@ -21,11 +23,13 @@ import {
 import VendorLayout from "../layouts/VendorLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import CSRLayout from "../layouts/CSRLayout";
+import EditProduct from "../pages/Vendor/ProductManagement/EditProduct";
 
 export default function AppRoutes() {
   return (
     <Router>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Landing />} />
         <Route path="/CSRDashboard" element={<CSRDashboard />} />
 
@@ -41,8 +45,12 @@ export default function AppRoutes() {
         </Route>
 
         {/* Vendor Layout */}
-        <Route path="/*" element={<VendorLayout />}>
-          <Route path="vendor-dashboard" element={<VendorDashboard />} />
+        <Route path="/vendor/*" element={<VendorLayout />}>
+          <Route path="dashboard" element={<VendorDashboard />} />
+          <Route path="order-management" element={<OMLanding />} />
+          <Route path="product-management" element={<PMLanding />} />
+          <Route path="add-product" element={<AddProduct />} />
+          <Route path="edit-product/:id" element={<EditProduct />} />
         </Route>
 
         {/* CSR Layout */}
