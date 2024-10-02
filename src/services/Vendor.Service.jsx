@@ -46,9 +46,9 @@ const getVendorById = async (id) => {
     return response.json();
 };
 
-const updateVendor = async (vendor) => {
+const updateVendor = async (id, vendor) => {
     const token = localStorage.getItem('token');
-    const response = await fetch(URL.GET_VENDOR_BY_ID_URL(vendor.id), {
+    const response = await fetch(URL.GET_VENDOR_BY_ID_URL(id), {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -71,11 +71,50 @@ const deleteVendor = async (id) => {
     return response.json();
 }
 
+const verifyVendor = async (id) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(URL.VENDOR_CUSTOM_URL(id, 'verify'), {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.json();
+}
+
+const deactivateVendor = async (id) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(URL.VENDOR_CUSTOM_URL(id, 'deactivate'), {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.json();
+}
+
+const activateVendor = async (id) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(URL.VENDOR_CUSTOM_URL(id, 'activate'), {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            'Authorization': `Bearer ${token}`
+        }
+    });
+    return response.json();
+}
+
 export default {
     login,
     register,
     getAllVendors,
     getVendorById,
     updateVendor,
-    deleteVendor
+    deleteVendor,
+    verifyVendor,
+    deactivateVendor,
+    activateVendor
 };

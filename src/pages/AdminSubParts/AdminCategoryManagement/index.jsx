@@ -18,7 +18,7 @@ import Swal from 'sweetalert2';
 export default function AdminCategoryManagement() {
     const [categories, setCategories] = useState([]);
     const [filteredCategories, setFilteredCategories] = useState([]);
-    const [searchQuery, setSearchQuery] = useState(''); // State for search query
+    const [searchQuery, setSearchQuery] = useState('');
     const [selectedCategory, setSelectedCategory] = useState(null);
     const [showAddCategoryModal, setShowAddCategoryModal] = useState(false);
     const [showEditCategoryModal, setShowEditCategoryModal] = useState(false);
@@ -42,7 +42,7 @@ export default function AdminCategoryManagement() {
             .then(data => {
                 console.log(data);
                 setCategories(data);
-                setFilteredCategories(data); // Initialize filtered categories
+                setFilteredCategories(data);
             })
             .catch(err => {
                 console.log(err);
@@ -56,7 +56,6 @@ export default function AdminCategoryManagement() {
         fetchCategories();
     }, []);
 
-    // Filter categories based on search query
     useEffect(() => {
         const results = categories.filter(category =>
             category.name.toLowerCase().includes(searchQuery.toLowerCase())
@@ -70,7 +69,7 @@ export default function AdminCategoryManagement() {
         description: Yup.string().required('Category description is required'),
     });
 
-    // Submit Handler for Adding
+    // Add Function
     const handleAdd = (values, { resetForm }) => {
         setLoading(true);
         CategoryService.createCategory(values)
@@ -81,6 +80,8 @@ export default function AdminCategoryManagement() {
                     icon: 'success',
                     title: 'Success!',
                     text: 'Category added successfully.',
+                    showConfirmButton: false,
+                    timer: 2000,
                 });
             })
             .catch(err => {
@@ -89,6 +90,8 @@ export default function AdminCategoryManagement() {
                     icon: 'error',
                     title: 'Error!',
                     text: 'Failed to add category. Please try again.',
+                    showConfirmButton: false,
+                    timer: 3000,
                 });
             })
             .finally(() => {
@@ -98,7 +101,7 @@ export default function AdminCategoryManagement() {
             });
     };
 
-    // Submit Handler for Editing
+    // Edit Function
     const handleEdit = (values, { resetForm }) => {
         setLoading(true);
         CategoryService.updateCategory({ ...selectedCategory, ...values })
@@ -109,6 +112,8 @@ export default function AdminCategoryManagement() {
                     icon: 'success',
                     title: 'Success!',
                     text: 'Category updated successfully.',
+                    showConfirmButton: false,
+                    timer: 2000,
                 });
             })
             .catch(err => {
@@ -117,6 +122,8 @@ export default function AdminCategoryManagement() {
                     icon: 'error',
                     title: 'Error!',
                     text: 'Failed to update category. Please try again.',
+                    showConfirmButton: false,
+                    timer: 3000,
                 });
             })
             .finally(() => {
@@ -126,7 +133,7 @@ export default function AdminCategoryManagement() {
             });
     };
 
-    // Delete Handler
+    // Delete Function
     const handleDelete = (categoryId) => {
         Swal.fire({
             title: 'Are you sure?',
@@ -142,11 +149,13 @@ export default function AdminCategoryManagement() {
                 CategoryService.deleteCategory(categoryId)
                     .then(() => {
                         fetchCategories();
-                        Swal.fire(
-                            'Deleted!',
-                            'The category has been deleted.',
-                            'success'
-                        );
+                        Swal.fire({
+                            title: 'Deleted!',
+                            text: 'The category has been deleted.',
+                            icon: 'success',
+                            showConfirmButton: false,
+                            timer: 3000,
+                        });
                     })
                     .catch(err => {
                         console.log(err);
@@ -154,6 +163,8 @@ export default function AdminCategoryManagement() {
                             icon: 'error',
                             title: 'Error!',
                             text: 'Failed to delete category. Please try again.',
+                            showConfirmButton: false,
+                            timer: 3000,
                         });
                     })
                     .finally(() => {
@@ -175,7 +186,7 @@ export default function AdminCategoryManagement() {
                             <div className="flex-grow-1 text-center">
                                 <h4 className="m-0">Category Management</h4>
                             </div>
-                            <Col xs={3} className="ms-3"> {/* Adjust xs value for the desired size */}
+                            <Col xs={3} className="ms-3">
                                 <Form.Control
                                     type="text"
                                     placeholder="Search categories..."

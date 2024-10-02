@@ -4,12 +4,14 @@ const BASE_URL = import.meta.env.VITE_BASE_URL;
 export const AUTH_URL = `${BASE_URL}/auth/login`;
 export const GET_USER_URL = `${BASE_URL}/auth/all`;
 export const GET_USER_BY_ID_URL = (id) => `${BASE_URL}/auth/${id}`;
+export const REGISTER_URL = `${BASE_URL}/auth/register`;
 
 // Vendor Endpoints
 export const VENDOR_URL = `${BASE_URL}/vendor/login `;
 export const VENDOR_REGISTER_URL = `${BASE_URL}/vendor/register`;
 export const GET_VENDOR_URL = `${BASE_URL}/vendor`;
 export const GET_VENDOR_BY_ID_URL = (id) => `${BASE_URL}/vendor/${id}`;
+export const VENDOR_CUSTOM_URL = (id, action) => `${BASE_URL}/vendor/${action}/${id}`;
 
 // Product Endpoints
 export const PRODUCT_URL = `${BASE_URL}/product`;
