@@ -1,7 +1,11 @@
-import NavBar from './NavBar'
-import Footer from './Footer'
+import VendorNavBar from "./NavBar/VendorNavBar";
+import AdminNavBar from "./NavBar/AdminNavBar";
+import CSRNavBar from "./NavBar/CSRNavBar";
+import Footer from "./Footer";
 
 export {
-    NavBar,
-    Footer
-}
+        VendorNavBar,
+        AdminNavBar,
+        CSRNavBar,
+        Footer
+};
