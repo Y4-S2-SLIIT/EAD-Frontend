@@ -35,8 +35,49 @@ const getUserById = async (id) => {
     return response.json();
 }
 
+const createUser = async (user) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(URL.REGISTER_URL, {
+        method: 'POST',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(user)
+    });
+    return response.json();
+}
+
+const updateUser = async (user) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(URL.GET_USER_BY_ID_URL(user.id), {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify(user)
+    });
+    return response.json();
+}
+
+const deleteUser = async (id) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(URL.GET_USER_BY_ID_URL(id), {
+        method: 'DELETE',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    });
+    return response.json();
+}
+
 export default {
     login,
     getAllUsers,
-    getUserById
+    getUserById,
+    createUser,
+    updateUser,
+    deleteUser
 };
