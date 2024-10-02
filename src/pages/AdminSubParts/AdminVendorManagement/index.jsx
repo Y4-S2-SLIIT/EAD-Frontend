@@ -21,7 +21,7 @@ export default function AdminVendorManagement() {
     const [filteredVendors, setFilteredVendors] = useState([]);
     const [showEditModal, setShowEditModal] = useState(false);
     const [showAddModal, setShowAddModal] = useState(false);
-    const [showViewModal, setShowViewModal] = useState(false); // State for viewing vendor details
+    const [showViewModal, setShowViewModal] = useState(false);
     const [selectedVendor, setSelectedVendor] = useState(null);
     const [searchQuery, setSearchQuery] = useState('');
     const [isVerifiedFilter, setIsVerifiedFilter] = useState('all');
@@ -71,7 +71,7 @@ export default function AdminVendorManagement() {
 
     const handleShowViewModal = (vendor) => {
         setSelectedVendor(vendor);
-        setShowViewModal(true); // Show view modal
+        setShowViewModal(true);
     };
 
     const handleAddVendorModal = () => {
@@ -329,7 +329,7 @@ export default function AdminVendorManagement() {
                                     phone: selectedVendor?.phone || '',
                                     address: selectedVendor?.address || '',
                                     username: selectedVendor?.username || '',
-                                    password: '' // Optional: Include password if needed
+                                    password: selectedVendor?.password || '',
                                 }}
                                 validationSchema={validationSchema}
                                 onSubmit={handleEditSubmit}
@@ -460,14 +460,14 @@ export default function AdminVendorManagement() {
 
                                 {!selectedVendor.isDeactivated && (
                                     <Button
-                                        variant="primary"
+                                        variant="warning"
                                         onClick={() => handleDeactivateVendor(selectedVendor.id)}
                                     >Deactivate Vendor</Button>
                                 )}{' '}
 
                                 {!selectedVendor.isVerified && (
                                     <Button
-                                        variant="primary"
+                                        variant="success"
                                         onClick={() => handleVerifyVendor(selectedVendor.id)}
                                     >Verify Vendor</Button>
                                 )}
