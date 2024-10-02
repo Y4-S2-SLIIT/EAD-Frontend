@@ -13,6 +13,13 @@ export const GET_VENDOR_URL = `${BASE_URL}/vendor`;
 export const GET_VENDOR_BY_ID_URL = (id) => `${BASE_URL}/vendor/${id}`;
 export const VENDOR_CUSTOM_URL = (id, action) => `${BASE_URL}/vendor/${action}/${id}`;
 
+// Customer Endpoints
+export const CUSTOMER_URL = `${BASE_URL}/customer/login`;
+export const CUSTOMER_REGISTER_URL = `${BASE_URL}/customer/register`;
+export const GET_CUSTOMER_URL = `${BASE_URL}/customer`;
+export const GET_CUSTOMER_BY_ID_URL = (id) => `${BASE_URL}/customer/${id}`;
+export const CUSTOMER_CUSTOM_URL = (id, action) => `${BASE_URL}/customer/${action}/${id}`;
+
 // Product Endpoints
 export const PRODUCT_URL = `${BASE_URL}/product`;
 export const PRODUCT_BY_ID = (id) => `${BASE_URL}/product/${id}`;
