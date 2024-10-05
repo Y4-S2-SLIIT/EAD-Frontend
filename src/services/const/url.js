@@ -29,3 +29,7 @@ export const GET_PRODUCT_BY_VENDORID = (id) => `${BASE_URL}/product/vendor/${id}
 export const CATEGORY_URL = `${BASE_URL}/category`;
 export const CATEGORY_BY_ID_URL = (id) => `${BASE_URL}/category/${id}`;
 
+//Customer Endpoints
+export const CUSTOMER_URL = `${BASE_URL}/customer`;
+export const CUSTOMER_BY_ID_URL = (id) => `${BASE_URL}/customer/${id}`;
+

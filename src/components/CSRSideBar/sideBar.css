@@ -1,0 +1,59 @@
+/* Sidebar wrapper styles */
+.sidebar-wrapper {
+    width: 250px; /* Width when expanded */
+    background-color: #007bff; /* Blue background */
+    transition: width 0.3s ease; /* Smooth transition for width */
+    color: white; /* White text color */
+    height: 100vh; /* Full height */
+    padding: 0; /* Remove padding */
+    position: fixed; /* Fixed positioning */
+    left: 0; /* Align to the left */
+    top: 0; /* Align to the top */
+    z-index: 1000; /* Ensure it is on top of other elements */
+}
+
+/* Styles for collapsed sidebar */
+.sidebar-wrapper.collapsed {
+    width: 60px; /* Collapsed width */
+}
+
+/* Toggle button styling */
+.toggle-button-sidebar {
+    position: relative; /* Position relative to the sidebar */
+    left: 0; /* Align it to the left */
+    top: 0; /* Align it to the top */
+    background: #007bff; /* Match sidebar color */
+    border: none; /* Remove border */
+    color: white; /* White text and icon */
+    padding: 10px; /* Add some padding for better clickability */
+    cursor: pointer; /* Pointer cursor for button */
+    border-radius: 0 0 50% 0; /* Rounded corner on bottom-right */
+    display: flex; /* Align icon inside button */
+    justify-content: center;
+    align-items: center;
+    z-index: 1100; /* Ensure it's above other elements */
+    width: 30px; /* Set fixed width */
+    height: 30px; /* Set fixed height */
+}
+
+/* Adjust icon styles */
+.sidebar-icon {
+    margin-right: 10px; /* Space between icon and text */
+    color: white; /* White color for icons */
+}
+
+.flex-column .nav-link {
+    color: white; /* White text color for nav links */
+    padding: 15px; /* Padding for links */
+    display: flex; /* Display flex to align items */
+    align-items: center; /* Center items vertically */
+    transition: background 0.3s ease; /* Smooth background transition */
+}
+
+.flex-column .nav-link:hover {
+    background-color: rgba(255, 255, 255, 0.1); /* Light background on hover */
+}
+
+.sidebar-wrapper.collapsed .sidebar-icon {
+    margin-right: 0; /* Remove margin for collapsed state */
+}

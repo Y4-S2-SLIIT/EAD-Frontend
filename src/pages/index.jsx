@@ -15,6 +15,13 @@ import {
     AdminInventoryManagement
 } from "./AdminSubParts";
 
+import{
+    CSRCustomerManagement,
+    CSROrderManagement,
+    CSRCustomerDetails
+} from "./CSRSubParts";
+
+
 export {
     Landing,
     AdminDashboard,
@@ -29,4 +36,7 @@ export {
     AdminSystemUserManagement,
     AdminCustomerManagement,
     AdminInventoryManagement
+    CSRCustomerManagement,
+    CSROrderManagement,
+    CSRCustomerDetails
 };
