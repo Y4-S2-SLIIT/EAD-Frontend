@@ -40,7 +40,7 @@ export default function AdminLoginCard() {
                                     timer: 1500
                                 })
                                     .then(() => {
-                                        window.location.href = '/AdminDashboard';
+                                        window.location.href = '/admin-dashboard';
                                     })
                             }
                             if (user.data.userType === 'csr') {

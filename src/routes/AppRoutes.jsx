@@ -9,11 +9,15 @@ import {
   AdminDashboard,
   CSRDashboard,
   VendorDashboard,
-
+  OMLanding,
+  PMLanding,
+  AddProduct,
   AdminCategoryManagement,
   AdminOrderManagement,
   AdminVendorManagement,
   AdminSystemUserManagement,
+  AdminCustomerManagement,
+  AdminInventoryManagement
 
   CSRCustomerManagement,
   CSROrderManagement,
@@ -23,11 +27,13 @@ import {
 import VendorLayout from "../layouts/VendorLayout";
 import AdminLayout from "../layouts/AdminLayout";
 import CSRLayout from "../layouts/CSRLayout";
+import EditProduct from "../pages/Vendor/ProductManagement/EditProduct";
 
 export default function AppRoutes() {
   return (
     <Router>
       <Routes>
+        {/* Public Routes */}
         <Route path="/" element={<Landing />} />
 
         {/* Admin Layout */}
@@ -37,11 +43,17 @@ export default function AppRoutes() {
           <Route path="admin-order-management" element={<AdminOrderManagement />} />
           <Route path="admin-vendor-management" element={<AdminVendorManagement />} />
           <Route path="admin-system-user-management" element={<AdminSystemUserManagement />} />
+          <Route path="admin-customer-management" element={<AdminCustomerManagement />} />
+          <Route path="admin-inventory-management" element={<AdminInventoryManagement />} />
         </Route>
 
         {/* Vendor Layout */}
-        <Route path="/*" element={<VendorLayout />}>
-          <Route path="vendor-dashboard" element={<VendorDashboard />} />
+        <Route path="/vendor/*" element={<VendorLayout />}>
+          <Route path="dashboard" element={<VendorDashboard />} />
+          <Route path="order-management" element={<OMLanding />} />
+          <Route path="product-management" element={<PMLanding />} />
+          <Route path="add-product" element={<AddProduct />} />
+          <Route path="edit-product/:id" element={<EditProduct />} />
         </Route>
 
         {/* CSR Layout */}

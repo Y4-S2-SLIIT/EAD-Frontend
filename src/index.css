@@ -71,3 +71,30 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
+/* navbar */
+.nav-link:hover {
+  color: red; /* Change to any color you prefer */
+  cursor: pointer; /* Shows the pointer cursor */
+}
+
+/* footer */
+footer {
+  background-color: #343a40;
+  color: white;
+  padding: 20px 0;
+}
+
+footer a {
+  color: white;
+  text-decoration: none;
+}
+
+footer a:hover {
+  color: lightgray;
+}
+
+.admin-category-management {
+  /* background-color: #778dd4; */
+  /* width: 100px; */
+  padding: 2rem;
+}

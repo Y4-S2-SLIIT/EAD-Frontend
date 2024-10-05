@@ -1,30 +1,8 @@
 import * as URL from './const/url';
 
-const login = async (username, password) => {
-    const response = await fetch(URL.VENDOR_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify({ username, password })
-    });
-    return response.json();
-}
-
-const register = async (vendor) => {
-    const response = await fetch(URL.VENDOR_REGISTER_URL, {
-        method: 'POST',
-        headers: {
-            'Content-Type': 'application/json'
-        },
-        body: JSON.stringify(vendor)
-    });
-    return response.json();
-}
-
-const getAllVendors = async () => {
+const getAllCustomers = async () => {
     const token = localStorage.getItem('token');
-    const response = await fetch(URL.GET_VENDOR_URL, {
+    const response = await fetch(URL.GET_CUSTOMER_URL, {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -34,9 +12,9 @@ const getAllVendors = async () => {
     return response.json();
 }
 
-const getVendorById = async (id) => {
+const getCustomerById = async (id) => {
     const token = localStorage.getItem('token');
-    const response = await fetch(URL.GET_VENDOR_BY_ID_URL(id), {
+    const response = await fetch(URL.GET_CUSTOMER_BY_ID_URL(id), {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -46,22 +24,22 @@ const getVendorById = async (id) => {
     return response.json();
 };
 
-const updateVendor = async (id, vendor) => {
+const updateCustomer = async (id, customer) => {
     const token = localStorage.getItem('token');
-    const response = await fetch(URL.GET_VENDOR_BY_ID_URL(id), {
+    const response = await fetch(URL.GET_CUSTOMER_BY_ID_URL(id), {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
             'Authorization': `Bearer ${token}`
         },
-        body: JSON.stringify(vendor)
+        body: JSON.stringify(customer)
     });
     return response.json();
 }
 
-const deleteVendor = async (id) => {
+const deleteCustomer = async (id) => {
     const token = localStorage.getItem('token');
-    const response = await fetch(URL.GET_VENDOR_BY_ID_URL(id), {
+    const response = await fetch(URL.GET_CUSTOMER_BY_ID_URL(id), {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
@@ -71,9 +49,9 @@ const deleteVendor = async (id) => {
     return response.json();
 }
 
-const verifyVendor = async (id) => {
+const verifyCustomer = async (id) => {
     const token = localStorage.getItem('token');
-    const response = await fetch(URL.VENDOR_CUSTOM_URL(id, 'verify'), {
+    const response = await fetch(URL.CUSTOMER_CUSTOM_URL(id, 'verify'), {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -83,9 +61,9 @@ const verifyVendor = async (id) => {
     return response.json();
 }
 
-const deactivateVendor = async (id) => {
+const deactivateCustomer = async (id) => {
     const token = localStorage.getItem('token');
-    const response = await fetch(URL.VENDOR_CUSTOM_URL(id, 'deactivate'), {
+    const response = await fetch(URL.CUSTOMER_CUSTOM_URL(id, 'deactivate'), {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -95,9 +73,9 @@ const deactivateVendor = async (id) => {
     return response.json();
 }
 
-const activateVendor = async (id) => {
+const activateCustomer = async (id) => {
     const token = localStorage.getItem('token');
-    const response = await fetch(URL.VENDOR_CUSTOM_URL(id, 'activate'), {
+    const response = await fetch(URL.CUSTOMER_CUSTOM_URL(id, 'activate'), {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -108,13 +86,11 @@ const activateVendor = async (id) => {
 }
 
 export default {
-    login,
-    register,
-    getAllVendors,
-    getVendorById,
-    updateVendor,
-    deleteVendor,
-    verifyVendor,
-    deactivateVendor,
-    activateVendor
-};
+    getAllCustomers,
+    getCustomerById,
+    updateCustomer,
+    deleteCustomer,
+    verifyCustomer,
+    deactivateCustomer,
+    activateCustomer
+}
