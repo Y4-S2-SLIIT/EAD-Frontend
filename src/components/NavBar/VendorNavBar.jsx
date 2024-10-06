@@ -1,26 +1,23 @@
 import React, { useState, useEffect } from "react";
-import { Link, useLocation, useNavigate } from "react-router-dom";
+import { Link, useNavigate } from "react-router-dom";
 
 const VendorNavBar = () => {
-  // State to hold the active nav item
   const [activeNav, setActiveNav] = useState("");
-  const navigate = useNavigate(); // Use navigate from react-router-dom
+  const navigate = useNavigate();
 
-  // Load the active nav from localStorage when the component mounts
   useEffect(() => {
     const storedNav = localStorage.getItem("erp-nav");
     if (storedNav) {
       setActiveNav(storedNav);
     } else {
-      setActiveNav("vendor-dashboard"); // Default to vendor dashboard
+      setActiveNav("vendor-dashboard");
     }
   }, []);
 
-  // Function to update the active nav and navigate
   const handleNavigation = (navItem, url) => {
-    setActiveNav(navItem); // Update state
-    localStorage.setItem("erp-nav", navItem); // Store in localStorage
-    navigate(url); // Use navigate instead of window.location.href
+    setActiveNav(navItem);
+    localStorage.setItem("erp-nav", navItem);
+    navigate(url);
   };
 
   return (
@@ -49,7 +46,7 @@ const VendorNavBar = () => {
               <Link
                 to="/vendor/dashboard"
                 className={`nav-link cursor-pointer ${
-                  activeNav === "vendor-dashboard" ? "active" : ""
+                  activeNav === "vendor-dashboard" ? "active" : "inactive-nav"
                 }`}
                 onClick={() => handleNavigation("vendor-dashboard", "/vendor/dashboard")}
               >
@@ -60,7 +57,7 @@ const VendorNavBar = () => {
               <Link
                 to="/vendor/product-management"
                 className={`nav-link cursor-pointer ${
-                  activeNav === "vendor-product-management" ? "active" : ""
+                  activeNav === "vendor-product-management" ? "active" : "inactive-nav"
                 }`}
                 onClick={() => handleNavigation("vendor-product-management", "/vendor/product-management")}
               >
@@ -71,7 +68,7 @@ const VendorNavBar = () => {
               <Link
                 to="/vendor/order-management"
                 className={`nav-link cursor-pointer ${
-                  activeNav === "vendor-order-management" ? "active" : ""
+                  activeNav === "vendor-order-management" ? "active" : "inactive-nav"
                 }`}
                 onClick={() => handleNavigation("vendor-order-management", "/vendor/order-management")}
               >

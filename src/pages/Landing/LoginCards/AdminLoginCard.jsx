@@ -8,6 +8,7 @@ import * as formik from 'formik';
 import * as yup from 'yup';
 import Swal from 'sweetalert2'
 import { jwtDecode } from "jwt-decode";
+import adminImage from '../../../assets/admin.jpg';
 
 import AdminService from '../../../services/Admin.Service';
 
@@ -73,7 +74,7 @@ export default function AdminLoginCard() {
     return (
         <>
             <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="holder.js/100px180" />
+                <Card.Img variant="top" src={adminImage} />
                 <Card.Body>
                     <Card.Title>Admin Login</Card.Title>
                     <Card.Text>
