@@ -35,7 +35,7 @@ export {
     AdminVendorManagement,
     AdminSystemUserManagement,
     AdminCustomerManagement,
-    AdminInventoryManagement
+    AdminInventoryManagement,
     CSRCustomerManagement,
     CSROrderManagement,
     CSRCustomerDetails

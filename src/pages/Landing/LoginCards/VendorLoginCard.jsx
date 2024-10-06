@@ -37,8 +37,8 @@ export default function VendorLoginCard() {
                         .then(() => {
                             localStorage.setItem('erp-role', 'vendor');
                             localStorage.setItem('erp-username', values.username);
-                            localStorage.setItem('erp-nav', 'vendor-dashoboard');
-                            window.location.href = '/vendor/dashoboard';
+                            localStorage.setItem('erp-nav', 'vendor-dashboard');
+                            window.location.href = '/vendor/dashboard';
                         })
                 }
                 else {
