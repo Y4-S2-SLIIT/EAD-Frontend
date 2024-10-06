@@ -33,3 +33,6 @@ export const CATEGORY_BY_ID_URL = (id) => `${BASE_URL}/category/${id}`;
 export const CUSTOMER_URL = `${BASE_URL}/customer`;
 export const CUSTOMER_BY_ID_URL = (id) => `${BASE_URL}/customer/${id}`;
 
+// Order Endpoints
+export const ORDER_URL = `${BASE_URL}/order`;
+export const ORDER_BY_ID = (id) => `${BASE_URL}/order/${id}`;
