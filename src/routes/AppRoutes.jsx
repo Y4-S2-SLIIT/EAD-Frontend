@@ -17,7 +17,7 @@ import {
   AdminVendorManagement,
   AdminSystemUserManagement,
   AdminCustomerManagement,
-  AdminInventoryManagement
+  AdminInventoryManagement,
 
   CSRCustomerManagement,
   CSROrderManagement,
