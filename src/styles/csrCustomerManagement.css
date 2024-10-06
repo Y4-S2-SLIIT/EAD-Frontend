@@ -1,0 +1,183 @@
+/* Reset body and html to take full height */
+html, body {
+    height: 100%;
+    margin: 0;
+    padding: 0;
+    overflow: hidden; /* Prevent scrolling, keeps layout fixed */
+}
+
+/* Ensure the entire page uses full height and width */
+.full-height-page {
+    display: flex;
+    height: 100vh; /* Full viewport height */
+    overflow: hidden; /* Prevents any overflow causing black strips */
+}
+
+/* Content area wrapper adjusts based on the sidebar state */
+.content-wrapper {
+    flex-grow: 1;
+    transition: all 0.3s ease; /* Smooth transition when sidebar is toggled */
+    display: flex;
+    flex-direction: column;
+    height: 100vh; /* Full height for content area */
+    background-color: #f8f9fa;
+}
+
+.sidebar-expanded {
+    margin-left: 250px; /* Width of expanded sidebar */
+}
+
+.sidebar-collapsed {
+    margin-left: 80px; /* Width of collapsed sidebar */
+}
+
+/* Sidebar and content occupy full height */
+.full-height-container {
+    display: flex;
+    flex-grow: 1;
+    padding: 0; /* Remove padding */
+    height: 100%; /* Ensure container takes full height */
+}
+
+.full-height-row {
+    flex-grow: 1;
+    margin: 0;
+    height: 100%;
+}
+
+.content-area {
+    flex-grow: 1;
+    height: 100vh; /* Full height of content area */
+    padding: 1rem; /* Optional padding for content */
+    overflow-y: auto; /* Allow content to scroll if needed */
+    background-color: #fff;
+}
+
+/* Sidebar wrapper: occupies full height and adjusts width smoothly */
+.sidebar-wrapper {
+    height: 100vh;
+    position: fixed;
+    top: 0;
+    left: 0;
+    transition: width 0.3s ease;
+}
+
+.sidebar-wrapper.expanded {
+    width: 250px; /* Expanded width */
+}
+
+.sidebar-wrapper.collapsed {
+    width: 80px; /* Collapsed width */
+}
+
+/* Remove margin at the bottom of the columns */
+.mb-3 {
+    margin-bottom: 0 !important;
+}
+
+/* Custom styles for the toggle buttons */
+.toggle-button {
+    color: #007bff; /* Default text color */
+    border: 2px solid transparent; /* Default border for unselected */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.toggle-button:focus {
+    box-shadow: none; /* Remove default focus shadow */
+}
+
+/* Styles for the active button */
+.toggle-button.active {
+    background-color: #007bff; /* Background for active button */
+    color: white; /* Text color for active button */
+}
+
+/* Styles for unselected buttons */
+.toggle-button:not(.active) {
+    background-color: transparent; /* No background for unselected buttons */
+    border-color: #007bff; /* Border color for unselected buttons */
+    color: #007bff; /* Text color for unselected buttons */
+}
+
+/* Custom styles for the search bar */
+.search-bar {
+    width: 100%; /* Make the search bar take full width */
+    max-width: none; /* Remove any max-width constraints */
+}
+
+/* Ensure there's sufficient space between cards */
+.mb-3 {
+    margin-bottom: 1rem !important; /* Ensure consistent space between cards */
+}
+
+/* Add spacing between buttons */
+.mb-2 {
+    margin-bottom: 0.5rem !important; /* Customize as needed */
+}
+
+/* Style for the See More button */
+button.link {
+    color: #007bff; /* Bootstrap primary color */
+    text-decoration: underline; /* Underline style */
+}
+
+/* Ensure all cards have the same height */
+.card {
+    display: flex;
+    flex-direction: column; /* Stack content vertically */
+    height: 100%; /* Full height of the parent */
+}
+
+/* Ensure the buttons at the bottom are spaced appropriately */
+.card .btn {
+    margin-top: auto; /* Pushes the button to the bottom */
+}
+
+/* Add spacing between buttons */
+.mb-2 {
+    margin-bottom: 0.5rem !important; /* Customize as needed */
+}
+
+/* Style for the See More button */
+button.link {
+    color: #007bff; /* Bootstrap primary color */
+    text-decoration: underline; /* Underline style */
+}
+
+/* Custom styles for the toggle buttons */
+.toggle-button {
+    color: #007bff; /* Default text color */
+    border: 2px solid transparent; /* Default border for unselected */
+    transition: all 0.3s ease; /* Smooth transition */
+}
+
+.toggle-button:focus {
+    box-shadow: none; /* Remove default focus shadow */
+}
+
+/* Styles for the active button */
+.toggle-button.active {
+    background-color: #007bff; /* Background for active button */
+    color: white; /* Text color for active button */
+}
+
+/* Styles for unselected buttons */
+.toggle-button:not(.active) {
+    background-color: transparent; /* No background for unselected buttons */
+    border-color: #007bff; /* Border color for unselected buttons */
+    color: #007bff; /* Text color for unselected buttons */
+}
+
+/* Custom styles for the search bar */
+.search-bar {
+    width: 100%; /* Make the search bar take full width */
+    max-width: none; /* Remove any max-width constraints */
+}
+
+/* Ensure there's sufficient space between cards */
+.mb-3 {
+    margin-bottom: 1rem !important; /* Ensure consistent space between cards */
+}
+
+
+
