@@ -8,6 +8,8 @@ import * as formik from 'formik';
 import * as yup from 'yup';
 import Swal from 'sweetalert2'
 
+import vendorImage from '../../../assets/vendor.jpg';
+
 import VendorService from '../../../services/Vendor.Service';
 
 export default function VendorLoginCard() {
@@ -56,7 +58,7 @@ export default function VendorLoginCard() {
     return (
         <>
             <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="holder.js/100px180" />
+                <Card.Img variant="top" src={vendorImage} />
                 <Card.Body>
                     <Card.Title>Vendor Login</Card.Title>
                     <Card.Text>
