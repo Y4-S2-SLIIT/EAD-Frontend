@@ -20,8 +20,10 @@ const PMLanding = () => {
   }, []);
 
   // Filter products based on search term
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredProducts = products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.id.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleSearchChange = (e) => {
@@ -82,13 +84,17 @@ const PMLanding = () => {
         <input
           type="text"
           className="form-control"
-          placeholder="Search Products"
+          placeholder="Search Products by Name or ID"
           value={searchTerm}
           onChange={handleSearchChange}
         />
       </div>
 
-      <div className="product-list">
+      {/* Add Bootstrap scrolling container */}
+      <div
+        className="product-list overflow-auto"
+        style={{ maxHeight: "500px" }} // Set a max height for scrolling
+      >
         {filteredProducts.length > 0 ? (
           filteredProducts
             .slice()
@@ -96,16 +102,20 @@ const PMLanding = () => {
             .map((product) => (
               <div key={product.id} className="card mb-3">
                 <div className="row g-0">
-                  <div className="col-md-4">
+                  <div className="col-md-3 d-flex justify-content-center align-items-center">
                     <img
                       src={product.image}
                       alt={product.name}
                       className="img-fluid rounded-start"
+                      style={{ maxHeight: "250px" }}
                     />
                   </div>
                   <div className="col-md-8">
                     <div className="card-body">
                       <h5 className="card-title">{product.name}</h5>
+                      <p className="card-text">
+                        <strong>ID:</strong> {product.id}
+                      </p>
                       <p className="card-text">
                         <strong>Brand:</strong> {product.brand}
                       </p>

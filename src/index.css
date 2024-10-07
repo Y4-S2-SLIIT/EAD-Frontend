@@ -71,10 +71,14 @@ button:focus-visible {
     background-color: #f9f9f9;
   }
 }
-/* navbar */
-.nav-link:hover {
-  color: red; /* Change to any color you prefer */
-  cursor: pointer; /* Shows the pointer cursor */
+/* Custom style for inactive links */
+.inactive-nav {
+  color: grey !important;
+}
+
+/* On hover, change the color to red */
+.inactive-nav:hover {
+  color: red !important;
 }
 
 /* footer */

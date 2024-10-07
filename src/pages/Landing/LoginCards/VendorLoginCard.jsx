@@ -8,6 +8,8 @@ import * as formik from 'formik';
 import * as yup from 'yup';
 import Swal from 'sweetalert2'
 
+import vendorImage from '../../../assets/vendor.jpg';
+
 import VendorService from '../../../services/Vendor.Service';
 
 export default function VendorLoginCard() {
@@ -37,8 +39,8 @@ export default function VendorLoginCard() {
                         .then(() => {
                             localStorage.setItem('erp-role', 'vendor');
                             localStorage.setItem('erp-username', values.username);
-                            localStorage.setItem('erp-nav', 'vendor-dashoboard');
-                            window.location.href = '/vendor/dashoboard';
+                            localStorage.setItem('erp-nav', 'vendor-dashboard');
+                            window.location.href = '/vendor/dashboard';
                         })
                 }
                 else {
@@ -56,7 +58,7 @@ export default function VendorLoginCard() {
     return (
         <>
             <Card style={{ width: '18rem' }}>
-                <Card.Img variant="top" src="holder.js/100px180" />
+                <Card.Img variant="top" src={vendorImage} />
                 <Card.Body>
                     <Card.Title>Vendor Login</Card.Title>
                     <Card.Text>
