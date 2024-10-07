@@ -207,7 +207,7 @@ export default function AdminCustomerManagement() {
 
     return (
         <>
-            <Container fluid className="vh-100 justify-content-center align-items-center">
+            <Container fluid className="vh-100 justify-content-center align-items-center overflow-auto">
                 <Row className="w-100 mb-3">
                     <Col>
                         <Alert variant="primary" className="d-flex justify-content-between align-items-center">

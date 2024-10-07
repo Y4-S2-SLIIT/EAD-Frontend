@@ -37,7 +37,7 @@ export const CUSTOMER_BY_ID_URL = (id) => `${BASE_URL}/customer/${id}`;
 export const ORDER_URL = `${BASE_URL}/order`;
 export const ORDER_BY_ID = (id) => `${BASE_URL}/order/${id}`;
 export const ORDER_BY_VENDOR_ID = (id) => `${BASE_URL}/order/vendor/${id}`;
-export const ORDER_UPDATE_VENDOR_STATUS = (orderId, vendorId, status) => `${BASE_URL}/order/${orderId}/vendor/${vendorId}/${status}`;<<<<<<< dev/randulam
+export const ORDER_UPDATE_VENDOR_STATUS = (orderId, vendorId, status) => `${BASE_URL}/order/${orderId}/vendor/${vendorId}/${status}`;
 
 // Notification Endpoints
 export const NOTIFICATION_URL = `${BASE_URL}/notification`;

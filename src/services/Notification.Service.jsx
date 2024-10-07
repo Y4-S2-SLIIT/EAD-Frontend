@@ -14,7 +14,7 @@ const getAllNotifications = async () => {
 
 const getNotificationById = async (id) => {
     const token = localStorage.getItem('token');
-    const response = await fetch(URL.NOTIFICATION_BY_ID_URL(id), {
+    const response = await fetch(URL.NOTIFICATION_BY_ID(id), {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
@@ -39,7 +39,7 @@ const createNotification = async (notification) => {
 
 const updateNotification = async (notification) => {
     const token = localStorage.getItem('token');
-    const response = await fetch(URL.NOTIFICATION_BY_ID_URL(notification.id), {
+    const response = await fetch(URL.NOTIFICATION_BY_ID(notification.id), {
         method: 'PUT',
         headers: {
             'Content-Type': 'application/json',
@@ -52,19 +52,19 @@ const updateNotification = async (notification) => {
 
 const deleteNotification = async (id) => {
     const token = localStorage.getItem('token');
-    const response = await fetch(URL.NOTIFICATION_BY_ID_URL(id), {
+    const response = await fetch(URL.NOTIFICATION_BY_ID(id), {
         method: 'DELETE',
         headers: {
             'Content-Type': 'application/json',
             Authorization: `Bearer ${token}`
         }
     });
-    return response.json();
+    return response;
 }
 
 const getNotificationsByVendorId = async (id) => {
     const token = localStorage.getItem('token');
-    const response = await fetch(URL.NOTIFICATION_CUSTOM_URL(id, 'vendor'), {
+    const response = await fetch(URL.NOTIFICATION_VENDOR_ID(id), {
         method: 'GET',
         headers: {
             'Content-Type': 'application/json',
