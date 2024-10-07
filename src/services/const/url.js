@@ -36,3 +36,8 @@ export const CUSTOMER_BY_ID_URL = (id) => `${BASE_URL}/customer/${id}`;
 // Order Endpoints
 export const ORDER_URL = `${BASE_URL}/order`;
 export const ORDER_BY_ID = (id) => `${BASE_URL}/order/${id}`;
+
+// Notification Endpoints
+export const NOTIFICATION_URL = `${BASE_URL}/notification`;
+export const NOTIFICATION_BY_ID = (id) => `${BASE_URL}/notification/${id}`;
+export const NOTIFICATION_VENDOR_ID = (id) => `${BASE_URL}/notification/vendor/${id}`;
