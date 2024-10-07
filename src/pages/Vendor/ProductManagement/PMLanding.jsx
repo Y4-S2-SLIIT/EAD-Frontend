@@ -20,8 +20,10 @@ const PMLanding = () => {
   }, []);
 
   // Filter products based on search term
-  const filteredProducts = products.filter((product) =>
-    product.name.toLowerCase().includes(searchTerm.toLowerCase())
+  const filteredProducts = products.filter(
+    (product) =>
+      product.name.toLowerCase().includes(searchTerm.toLowerCase()) ||
+      product.id.toLowerCase().includes(searchTerm.toLowerCase())
   );
 
   const handleSearchChange = (e) => {
@@ -82,7 +84,7 @@ const PMLanding = () => {
         <input
           type="text"
           className="form-control"
-          placeholder="Search Products"
+          placeholder="Search Products by Name or ID"
           value={searchTerm}
           onChange={handleSearchChange}
         />
@@ -111,6 +113,9 @@ const PMLanding = () => {
                   <div className="col-md-8">
                     <div className="card-body">
                       <h5 className="card-title">{product.name}</h5>
+                      <p className="card-text">
+                        <strong>ID:</strong> {product.id}
+                      </p>
                       <p className="card-text">
                         <strong>Brand:</strong> {product.brand}
                       </p>

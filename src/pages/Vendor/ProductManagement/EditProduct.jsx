@@ -74,7 +74,9 @@ const EditProduct = () => {
 
   // Handle category change
   const handleCategoryChange = (e) => {
-    const selectedCategory = categories.find((cat) => cat.id === e.target.value);
+    const selectedCategory = categories.find(
+      (cat) => cat.id === e.target.value
+    );
     setProduct((prevProduct) => ({
       ...prevProduct,
       category: selectedCategory, // Set the entire category object
@@ -171,125 +173,152 @@ const EditProduct = () => {
     <div className="container">
       {/* Loading Spinner from Bootstrap */}
       {loading && (
-        <div className="position-fixed top-0 start-0 w-100 h-100 bg-light d-flex justify-content-center align-items-center" style={{ zIndex: 1050 }}>
+        <div
+          className="position-fixed top-0 start-0 w-100 h-100 bg-light d-flex justify-content-center align-items-center"
+          style={{ zIndex: 1050 }}
+        >
           <div className="spinner-border" role="status">
             <span className="visually-hidden">Loading...</span>
           </div>
         </div>
       )}
       <h2>Edit Product</h2>
-      <form onSubmit={handleSubmit}>
-        {/* Name */}
-        <div className="mb-3">
-          <label htmlFor="name" className="form-label">Name</label>
-          <input
-            type="text"
-            className="form-control"
-            id="name"
-            name="name"
-            value={product.name}
-            onChange={handleChange}
-            required
-          />
-        </div>
+      <div style={{ maxHeight: "75vh", overflowY: "auto" }}>
+        <form onSubmit={handleSubmit}>
+          {/* Name */}
+          <div className="mb-3">
+            <label htmlFor="name" className="form-label">
+              Name
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="name"
+              name="name"
+              value={product.name}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        {/* Brand */}
-        <div className="mb-3">
-          <label htmlFor="brand" className="form-label">Brand</label>
-          <input
-            type="text"
-            className="form-control"
-            id="brand"
-            name="brand"
-            value={product.brand}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          {/* Brand */}
+          <div className="mb-3">
+            <label htmlFor="brand" className="form-label">
+              Brand
+            </label>
+            <input
+              type="text"
+              className="form-control"
+              id="brand"
+              name="brand"
+              value={product.brand}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        {/* Description */}
-        <div className="mb-3">
-          <label htmlFor="description" className="form-label">Description</label>
-          <textarea
-            className="form-control"
-            id="description"
-            name="description"
-            value={product.description}
-            onChange={handleChange}
-            required
-          />
-        </div>
+          {/* Description */}
+          <div className="mb-3">
+            <label htmlFor="description" className="form-label">
+              Description
+            </label>
+            <textarea
+              className="form-control"
+              id="description"
+              name="description"
+              value={product.description}
+              onChange={handleChange}
+              required
+            />
+          </div>
 
-        {/* Category */}
-        <div className="mb-3">
-          <label htmlFor="category" className="form-label">Category</label>
-          <select
-            className="form-select"
-            id="category"
-            name="category"
-            value={product.category?.id || ""} // Adjusting for category object
-            onChange={handleCategoryChange}
-            required
-          >
-            <option value="" disabled>Select a Category</option>
-            {categories.map((category) => (
-              <option key={category.id} value={category.id}>
-                {category.name}
+          {/* Category */}
+          <div className="mb-3">
+            <label htmlFor="category" className="form-label">
+              Category
+            </label>
+            <select
+              className="form-select"
+              id="category"
+              name="category"
+              value={product.category?.id || ""} // Adjusting for category object
+              onChange={handleCategoryChange}
+              required
+            >
+              <option value="" disabled>
+                Select a Category
               </option>
-            ))}
-          </select>
-        </div>
+              {categories.map((category) => (
+                <option key={category.id} value={category.id}>
+                  {category.name}
+                </option>
+              ))}
+            </select>
+          </div>
 
-        {/* Price */}
-        <div className="mb-3">
-          <label htmlFor="price" className="form-label">Price per Unit</label>
-          <input
-            type="number"
-            className="form-control"
-            id="price"
-            name="price"
-            value={product.price}
-            onChange={handleChange}
-            required
-            min="0"
-            step="0.01"
-          />
-        </div>
+          {/* Price */}
+          <div className="mb-3">
+            <label htmlFor="price" className="form-label">
+              Price per Unit
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="price"
+              name="price"
+              value={product.price}
+              onChange={handleChange}
+              required
+              min="0"
+              step="0.01"
+            />
+          </div>
 
-        {/* Product Image */}
-        <div className="mb-3">
-          <label htmlFor="image" className="form-label">Product Image</label>
-          {imagePreview && (
-            <div className="mb-3">
-              <img src={imagePreview} alt="Product Preview" style={{ width: "150px", height: "auto" }} />
-            </div>
-          )}
-          <input
-            type="file"
-            className="form-control"
-            id="image"
-            onChange={handleImageChange}
-            accept="image/*"
-          />
-        </div>
+          {/* Product Image */}
+          <div className="mb-3">
+            <label htmlFor="image" className="form-label">
+              Product Image
+            </label>
+            {imagePreview && (
+              <div className="mb-3">
+                <img
+                  src={imagePreview}
+                  alt="Product Preview"
+                  style={{ width: "150px", height: "auto" }}
+                />
+              </div>
+            )}
+            <input
+              type="file"
+              className="form-control"
+              id="image"
+              onChange={handleImageChange}
+              accept="image/*"
+            />
+          </div>
 
-        {/* Stock */}
-        <div className="mb-3">
-          <label htmlFor="stock" className="form-label">Stock Quantity</label>
-          <input
-            type="number"
-            className="form-control"
-            id="stock"
-            name="stock"
-            value={product.stock}
-            onChange={handleChange}
-            required
-            min="0"
-          />
-        </div>
+          {/* Stock */}
+          <div className="mb-3">
+            <label htmlFor="stock" className="form-label">
+              Stock Quantity
+            </label>
+            <input
+              type="number"
+              className="form-control"
+              id="stock"
+              name="stock"
+              value={product.stock}
+              onChange={handleChange}
+              required
+              min="0"
+            />
+          </div>
 
-        <button type="submit" className="btn btn-primary">Update Product</button>
-      </form>
+          <button type="submit" className="btn btn-primary">
+            Update Product
+          </button>
+        </form>
+      </div>
     </div>
   );
 };
