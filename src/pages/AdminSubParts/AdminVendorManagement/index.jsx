@@ -8,15 +8,19 @@ import {
     Modal,
     Form,
     Spinner,
-    Alert
+    Alert,
+    Carousel
 } from 'react-bootstrap';
 import { Formik, Form as FormikForm, Field, ErrorMessage } from 'formik';
 import * as Yup from 'yup';
 import VendorService from '../../../services/Vendor.Service';
+import ProductService from '../../../services/Product.Service';
+import NotificationService from '../../../services/Notification.Service';
 import Swal from 'sweetalert2';
 
 export default function AdminVendorManagement() {
     const [vendors, setVendors] = useState([]);
+    const [products, setProducts] = useState([]);
     const [loading, setLoading] = useState(false);
     const [filteredVendors, setFilteredVendors] = useState([]);
     const [showEditModal, setShowEditModal] = useState(false);
@@ -43,6 +47,16 @@ export default function AdminVendorManagement() {
     useEffect(() => {
         fetchVendors();
     }, []);
+
+    async function getProductsByVendorId(id) {
+        try {
+            const response = await ProductService.getProductsByVendorId(id);
+            setProducts(response);
+        } catch (error) {
+            console.error('Error fetching products:', error);
+        }
+    }
+
 
     // Effect for filtering vendors
     useEffect(() => {
@@ -71,6 +85,7 @@ export default function AdminVendorManagement() {
 
     const handleShowViewModal = (vendor) => {
         setSelectedVendor(vendor);
+        getProductsByVendorId(vendor.id);
         setShowViewModal(true);
     };
 
@@ -223,6 +238,36 @@ export default function AdminVendorManagement() {
                 fetchVendors();
             });
     };
+
+
+    async function sendNotification(product) {
+        const notification = {
+            VendorId: product.vendorId,
+            ProductId: product.id,
+        }
+
+        try {
+            await NotificationService.createNotification(notification)
+                .then((resoponse => {
+                    Swal.fire({
+                        icon: 'success',
+                        title: 'Notification sent successfully',
+                        showConfirmButton: false,
+                        timer: 2000
+                    });
+                }
+                )).catch(() =>
+                    Swal.fire({
+                        icon: 'error',
+                        title: 'Failed to send notification',
+                        showConfirmButton: false,
+                        timer: 3000
+                    }));
+
+        } catch (error) {
+            console.error('Error sending notification:', error);
+        }
+    }
 
     const validationSchema = Yup.object().shape({
         name: Yup.string().required('Name is required'),
@@ -441,38 +486,77 @@ export default function AdminVendorManagement() {
                         <Modal.Title>Vendor Details</Modal.Title>
                     </Modal.Header>
                     <Modal.Body>
-                        {selectedVendor && (
-                            <div>
-                                <h5>Name: {selectedVendor.name}</h5>
-                                <p>Email: {selectedVendor.email}</p>
-                                <p>Phone: {selectedVendor.phone}</p>
-                                <p>Address: {selectedVendor.address}</p>
-                                <p>Username: {selectedVendor.username}</p>
-                                <p>Status: {selectedVendor.isDeactivated ? 'Deactivated' : 'Active'}</p>
-                                <p>Verification Status: {selectedVendor.isVerified ? 'Verified' : 'Not Verified'}</p>
+                        <Row>
+                            {selectedVendor && (
+                                <div>
+                                    <h5>Name: {selectedVendor.name}</h5>
+                                    <p>Email: {selectedVendor.email}</p>
+                                    <p>Phone: {selectedVendor.phone}</p>
+                                    <p>Address: {selectedVendor.address}</p>
+                                    <p>Username: {selectedVendor.username}</p>
+                                    <p>Status: {selectedVendor.isDeactivated ? 'Deactivated' : 'Active'}</p>
+                                    <p>Verification Status: {selectedVendor.isVerified ? 'Verified' : 'Not Verified'}</p>
 
-                                {selectedVendor.isDeactivated && (
-                                    <Button
-                                        variant="primary"
-                                        onClick={() => handleActivateVendor(selectedVendor.id)}
-                                    >Activate Vendor</Button>
-                                )}{' '}
+                                    {selectedVendor.isDeactivated && (
+                                        <Button
+                                            variant="primary"
+                                            onClick={() => handleActivateVendor(selectedVendor.id)}
+                                        >Activate Vendor</Button>
+                                    )}{' '}
 
-                                {!selectedVendor.isDeactivated && (
-                                    <Button
-                                        variant="warning"
-                                        onClick={() => handleDeactivateVendor(selectedVendor.id)}
-                                    >Deactivate Vendor</Button>
-                                )}{' '}
+                                    {!selectedVendor.isDeactivated && (
+                                        <Button
+                                            variant="warning"
+                                            onClick={() => handleDeactivateVendor(selectedVendor.id)}
+                                        >Deactivate Vendor</Button>
+                                    )}{' '}
 
-                                {!selectedVendor.isVerified && (
-                                    <Button
-                                        variant="success"
-                                        onClick={() => handleVerifyVendor(selectedVendor.id)}
-                                    >Verify Vendor</Button>
-                                )}
-                            </div>
-                        )}
+                                    {!selectedVendor.isVerified && (
+                                        <Button
+                                            variant="success"
+                                            onClick={() => handleVerifyVendor(selectedVendor.id)}
+                                        >Verify Vendor</Button>
+                                    )}
+                                </div>
+                            )}
+                        </Row>
+                        <br />
+                        <Row>
+                            {products.length > 0 ? (
+                                <Carousel>
+                                    {products.map(product => (
+                                        <Carousel.Item key={product.id}>
+                                            <Row className="align-items-center">
+                                                <Col>
+                                                    <img
+                                                        className="d-block w-100"
+                                                        src={product.image}
+                                                        alt={product.name}
+                                                        style={{ maxHeight: '150px', maxWidth: '150px', objectFit: 'cover' }}
+                                                    />
+                                                </Col>
+                                                <Col>
+                                                    <h3>{product.name}</h3>
+                                                    {product.stock < 5 ? (
+                                                        <>
+                                                            <p style={{ color: 'red' }}>Remaining Stock - {product.stock}</p>
+                                                            <Button variant="warning" onClick={() => {
+                                                                sendNotification(product);
+                                                            }}>Alert Vendor!</Button>
+                                                        </>
+                                                    ) : (
+                                                        <p>Remaining Stock - {product.stock}</p>
+                                                    )}
+                                                </Col>
+                                            </Row>
+                                        </Carousel.Item>
+                                    ))}
+                                </Carousel>
+                            ) : (
+                                <p>No products available for this vendor.</p>
+                            )}
+                        </Row>
+                        <br />
                     </Modal.Body>
                 </Modal>
             </Container>

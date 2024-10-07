@@ -194,7 +194,7 @@ export default function AdminOrderManagement() {
                                     vendors.map((vendor, idx) => (
                                         <div key={idx}>
                                             <h6>Vendor: {vendor.vendorName}</h6>
-                                            <h6>Is Accepted: {vendor.item.isAccepted ? 'Accepted' : 'Not Accepted'}</h6>
+                                            <h6>Is Accepted: {vendor.item.isAccepted}</h6>
                                             <Carousel variant="dark">
                                                 {vendor.products.map((product, productIdx) => (
                                                     <Carousel.Item key={productIdx}>
