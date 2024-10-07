@@ -49,9 +49,36 @@ const deleteOrder = async (id) => {
     return response.json();
 }
 
+const getOrdersByVendorId = async (vendorId) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(URL.ORDER_BY_VENDOR_ID(vendorId), {
+        method: 'GET',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        }
+    });
+    return response.json();
+}
+
+const updateVendorOrderStatus = async (orderId, vendorId, status) => {
+    const token = localStorage.getItem('token');
+    const response = await fetch(URL.ORDER_UPDATE_VENDOR_STATUS(orderId, vendorId, status), {
+        method: 'PUT',
+        headers: {
+            'Content-Type': 'application/json',
+            Authorization: `Bearer ${token}`
+        },
+        body: JSON.stringify({ status })
+    });
+    return response.json();
+}
+
 export default {
     getAllOrders,
     getOrderById,
     updateOrder,
-    deleteOrder
+    deleteOrder,
+    getOrdersByVendorId,
+    updateVendorOrderStatus
 }
